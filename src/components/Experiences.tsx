@@ -1,3 +1,6 @@
+import { FadeIn } from "@/components/ui/FadeIn";
+import { StaggerContainer, StaggerItem } from "@/components/ui/StaggerContainer";
+
 const experiences = [
   {
     name: "Trampoline parks",
@@ -92,20 +95,25 @@ export default function Experiences() {
   return (
     <section className="sec experiences-sec" id="experiences">
       <div className="wrap">
-        <div className="sec-head center">
+        <FadeIn delay={0.1} direction="up" className="sec-head center">
           <p className="eyebrow">Ideas by what your child loves</p>
           <h2>Birthday experiences to explore</h2>
-          <p>From little ones to teens — venues and activities suited to your child&apos;s age, energy and interests.</p>
-        </div>
-        <div className="exp-grid">
+          <p>From little ones to teens, venues and activities suited to your child&apos;s age, energy and interests.</p>
+        </FadeIn>
+        <StaggerContainer className="exp-grid" staggerDelay={0.05}>
           {experiences.map((exp) => (
-            <div className="exp" style={{ background: exp.color }} key={exp.name}>
-              {exp.svg}
-              <b>{exp.name}</b>
-            </div>
+            <StaggerItem className="exp group hover:scale-[1.03] transition-all duration-300 hover:shadow-xl relative overflow-hidden" style={{ background: exp.color }} key={exp.name}>
+              <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors duration-300" />
+              <div className="relative z-10 group-hover:scale-110 transition-transform duration-300 origin-top-left">
+                {exp.svg}
+              </div>
+              <b className="relative z-10">{exp.name}</b>
+            </StaggerItem>
           ))}
-        </div>
-        <p className="tag-soft">Also: banquet halls, hotels and farmhouses for larger celebrations. Tell us your child&apos;s interests and we&apos;ll match the experience.</p>
+        </StaggerContainer>
+        <FadeIn delay={0.2} direction="up">
+          <p className="tag-soft">Also: banquet halls, hotels and farmhouses for larger celebrations. Tell us your child&apos;s interests and we&apos;ll match the experience.</p>
+        </FadeIn>
       </div>
     </section>
   );
