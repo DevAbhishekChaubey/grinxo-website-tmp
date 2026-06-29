@@ -1,6 +1,6 @@
 # GitHub Pages Deployment Guide
 
-This repository contains a pre-configured GitHub Actions workflow in [deploy.yml](file:///.github/workflows/deploy.yml) that builds and deploys your Next.js application to GitHub Pages automatically whenever changes are pushed to the `main` branch.
+This repository contains a pre-configured GitHub Actions workflow in [deploy.yml](file:///.github-tmp/workflows/deploy.yml) that builds and deploys your Next.js application to GitHub Pages automatically whenever changes are pushed to the `main` branch.
 
 ---
 
