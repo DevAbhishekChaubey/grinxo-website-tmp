@@ -23,7 +23,7 @@ export default function Navbar() {
     const toggleMenu = useCallback(() => setIsOpen(prev => !prev), []);
     const closeMenu = useCallback(() => setIsOpen(false), []);
 
-    const handleMobileLinkClick = useCallback((e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    const handleMobileLinkClick = useCallback(() => {
         closeMenu();
     }, [closeMenu]);
 
