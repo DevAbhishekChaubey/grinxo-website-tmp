@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ReactNode } from "react";
+import { ReactNode, useMemo } from "react";
 import { cn } from "@/lib/utils";
 
 interface StaggerContainerProps {
@@ -17,15 +17,18 @@ export function StaggerContainer({
   staggerDelay = 0.06,
   delayChildren = 0,
 }: StaggerContainerProps) {
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: staggerDelay,
-        delayChildren: delayChildren,
+  const containerVariants = useMemo(
+    () => ({
+      hidden: {},
+      visible: {
+        transition: {
+          staggerChildren: staggerDelay,
+          delayChildren: delayChildren,
+        },
       },
-    },
-  };
+    }),
+    [staggerDelay, delayChildren]
+  );
 
   return (
     <motion.div
@@ -40,16 +43,16 @@ export function StaggerContainer({
   );
 }
 
-export const StaggerItem = ({ children, className, style }: { children: ReactNode; className?: string; style?: React.CSSProperties }) => {
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.35, ease: [0.21, 0.47, 0.32, 0.98] as const }
-    },
-  };
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.35, ease: [0.21, 0.47, 0.32, 0.98] as const },
+  },
+};
 
+export const StaggerItem = ({ children, className, style }: { children: ReactNode; className?: string; style?: React.CSSProperties }) => {
   return (
     <motion.div variants={itemVariants} className={cn(className)} style={style}>
       {children}

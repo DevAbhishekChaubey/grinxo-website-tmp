@@ -1,11 +1,13 @@
 import type { Metadata, Viewport } from "next";
 import { Jost } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const jost = Jost({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-jost",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -36,18 +38,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={jost.variable}>
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              if (typeof window !== 'undefined') {
-                if ('scrollRestoration' in history) {
-                  history.scrollRestoration = 'manual';
-                }
-                window.scrollTo(0, 0);
-              }
-            `,
-          }}
-        />
+        <Script id="scroll-restore" strategy="afterInteractive">
+          {`
+            if ('scrollRestoration' in history) {
+              history.scrollRestoration = 'manual';
+            }
+            window.scrollTo(0, 0);
+          `}
+        </Script>
       </head>
       <body>
         {children}

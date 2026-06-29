@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ReactNode } from "react";
+import { ReactNode, useMemo } from "react";
 import { cn } from "@/lib/utils";
 
 interface FadeInProps {
@@ -12,6 +12,20 @@ interface FadeInProps {
   duration?: number;
 }
 
+const directions: Record<string, { x: number; y: number }> = {
+  up: { y: 30, x: 0 },
+  down: { y: -30, x: 0 },
+  left: { x: 30, y: 0 },
+  right: { x: -30, y: 0 },
+  none: { x: 0, y: 0 },
+};
+
+const ease = [0.21, 0.47, 0.32, 0.98] as const;
+
+const viewportConfig = { once: true, margin: "-10% 0px" as const };
+
+const visible = { opacity: 1, x: 0, y: 0 };
+
 export function FadeIn({
   children,
   className,
@@ -19,31 +33,25 @@ export function FadeIn({
   direction = "up",
   duration = 0.35,
 }: FadeInProps) {
-  const directions = {
-    up: { y: 30, x: 0 },
-    down: { y: -30, x: 0 },
-    left: { x: 30, y: 0 },
-    right: { x: -30, y: 0 },
-    none: { x: 0, y: 0 },
-  };
+  const initial = useMemo(
+    () => ({
+      opacity: 0,
+      ...directions[direction],
+    }),
+    [direction]
+  );
+
+  const transition = useMemo(
+    () => ({ ease, duration, delay }),
+    [duration, delay]
+  );
 
   return (
     <motion.div
-      initial={{
-        opacity: 0,
-        ...directions[direction],
-      }}
-      whileInView={{
-        opacity: 1,
-        x: 0,
-        y: 0,
-      }}
-      viewport={{ once: true, margin: "-10% 0px" }}
-      transition={{
-        duration,
-        delay,
-        ease: [0.21, 0.47, 0.32, 0.98],
-      }}
+      initial={initial}
+      whileInView={visible}
+      viewport={viewportConfig}
+      transition={transition}
       className={cn(className)}
     >
       {children}
