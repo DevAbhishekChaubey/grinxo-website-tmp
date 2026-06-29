@@ -69,8 +69,11 @@ header{
 .nav-cta{display:flex;align-items:center;gap:8px;background:#fff;color:var(--purple);
   font-weight:600;font-size:14px;padding:10px 18px;border-radius:999px}
 .nav-cta svg{width:17px;height:17px}
-.menu-btn{display:none;background:none;border:none;color:#fff;cursor:pointer}
-.menu-btn svg{width:28px;height:28px}
+.menu-btn{
+  display:none;background:none;border:none;color:#fff;cursor:pointer;
+  padding:8px;margin-right:-8px;
+}
+.menu-btn svg{width:28px;height:28px;display:block}
 
 /* ---------- hero ---------- */
 .hero{background:var(--purple);color:#fff;padding:64px 0 110px;overflow:hidden}
@@ -218,6 +221,9 @@ footer a:hover{color:#fff}
   .age-grid{grid-template-columns:1fr;gap:18px}
 }
 @media(max-width:760px){
+  body {
+    padding-bottom: 80px; /* Spacer so the sticky WA bar doesn't overlay footer copy/credits */
+  }
   .nav-links{display:none}
   .nav-cta{display:none}
   .menu-btn{display:block}
@@ -237,4 +243,16 @@ footer a:hover{color:#fff}
     box-shadow:0 -6px 20px rgba(45,20,60,.10);
   }
   .wa-bar .btn{flex:1;justify-content:center}
+}
+
+@media(max-width:600px){
+  .steps{grid-template-columns:1fr;gap:24px} /* Stack steps vertically to improve readability */
+}
+
+@media(max-width:480px){
+  .cats{grid-template-columns:1fr;gap:12px} /* Stack category cards vertically to prevent text overflow/clipping of long words */
+}
+
+@media(max-width:400px){
+  .exp-grid{grid-template-columns:1fr;gap:10px} /* Stack experience cards vertically on extra narrow viewports */
 }
