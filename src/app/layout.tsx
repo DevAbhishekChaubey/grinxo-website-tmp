@@ -35,7 +35,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={jost.variable}>
-      <body>{children}</body>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if (typeof window !== 'undefined') {
+                if ('scrollRestoration' in history) {
+                  history.scrollRestoration = 'manual';
+                }
+                window.scrollTo(0, 0);
+              }
+            `,
+          }}
+        />
+      </head>
+      <body>
+        {children}
+      </body>
     </html>
   );
 }
